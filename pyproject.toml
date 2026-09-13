@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "letterroll"
+version = "0.1.0"
+description = "Self-hosted Gmail newsletter rollup"
+requires-python = ">=3.14"
+dependencies = [
+    "Django==6.1.1",
+    "gunicorn==23.0.0",
+    "beautifulsoup4==4.13.5",
+    "python-dotenv==1.1.1",
+    "aioimaplib==2.0.1",
+    "aiosmtplib==5.1.2",
+    "lxml==6.0.1",
+    "google-auth==2.40.3",
+    "google-auth-oauthlib==1.2.2",
+    "google-api-python-client==2.179.0",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py314"]
+exclude = '''
+/(\.git|\.venv|venv|migrations|staticfiles|build|dist)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+py_version = 314
+known_first_party = ["accounts", "letterroll", "letterroll_project"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "letterroll_project.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "-ra --strict-markers"
+asyncio_mode = "auto"
